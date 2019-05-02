@@ -1,0 +1,50 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+<!--Flash message for if user does not have proper authority-->
+{%with messages = get_flashed_messages() %}
+{% if messages %}
+
+{% for message in messages %}
+    <div class="alert alert-danger" role="alert">
+        <strong>{{message}}</strong>
+    </div>
+{% endfor %}
+
+{% endif %}
+{% endwith %}
+
+<div class="row">
+    <div class="col-sm-4"><h1><u>{{category.name}}</u></h1>
+        <div class="row padding-top padding-bottom">
+            <div class="col-md-1"></div>
+            <div class="col-md-10 padding-none">
+                <a href="{{url_for('editCategory', category_id = category.id)}}">
+                    <button class="btn btn-dark" id="new-category">
+                        <span class="glyphicon books" aria-hidden="true"></span>Edit Category
+                    </button>
+                </a>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+    <div class="col-sm-8"><h1><u>Books</u></h1>
+        <div class="row padding-top padding-bottom">
+            <div class="col-md-10 padding-none">
+                <a href="{{url_for('newBook', category_id = category.id)}}">
+                    <button class="btn btn-dark" id="new-book">
+                        <span class="glyphicon book" aria-hidden="true"></span>Add Book
+                    </button>
+                </a>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <ul class="list-unstyled">
+            {% for book in books %}
+                <li><a href='{{url_for("showBookDescription", book_id = book.id) }}'>{{book.name}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

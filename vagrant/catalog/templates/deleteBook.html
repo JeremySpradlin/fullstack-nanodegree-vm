@@ -1,0 +1,14 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<h2> Are you sure you want to delete {{book.name}}? </h2>
+<div>
+	<form action="#" method = 'post'>
+		<button type="submit" class="btn btn-dark" id="submit" type="submit">
+		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Delete</button>
+		<a class="btn btn-primary" href='{{url_for("showBookDescription", book_id = book.id) }}' role="button">Cancel</a>
+	</form>
+</div>
+
+{% endblock %}
+

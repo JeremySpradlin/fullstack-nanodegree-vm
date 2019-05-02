@@ -1,0 +1,40 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<!--Flash message for if user does not have proper authority-->
+{%with messages = get_flashed_messages() %}
+{% if messages %}
+
+{% for message in messages %}
+    <div class="alert alert-danger" role="alert">
+        <strong>{{message}}</strong>
+    </div>
+{% endfor %}
+
+{% endif %}
+{% endwith %}
+<div class="row">
+    <div class="col-sm-4"><h1><u>{{book.name}}</u></h1>
+        <div class="row padding-top padding-bottom">
+            <div class="col-md-10 padding-none">
+                <a href="{{url_for('editBook', book_id = book.id, category_id = book.category_id)}}">
+                    <button class="btn btn-dark" id="edit-book">
+                        <span class="glyphicon books" aria-hidden="true"></span>Edit Book
+                    </button>
+                </a>
+                <a href="{{url_for('deleteBook', book_id = book.id, category_id = book.category_id)}}">
+                    <button class="btn btn-dark" id="edit-book">
+                        <span class="glyphicon books" aria-hidden="true"></span>Delete Book
+                    </button>
+                </a>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+    <div class="col-sm-8"><h1><u>Description</u></h1>
+        <ul class="list-unstyled">
+            {{book.description}}
+        </ul>
+    </div>
+</div>
+{% endblock %}

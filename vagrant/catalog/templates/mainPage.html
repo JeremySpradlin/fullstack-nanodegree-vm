@@ -1,0 +1,46 @@
+{% extends "main.html" %}
+{% block content %}
+{%include "header.html" %}
+
+<!--Flash message for letting user know login was successful-->
+{%with messages = get_flashed_messages() %}
+{% if messages %}
+
+{% for message in messages %}
+    <div class="alert alert-success" role="alert">
+        <strong>{{message}}</strong>
+    </div>
+{% endfor %}
+
+{% endif %}
+{% endwith %}
+
+<div class="row">
+    <div class="col-sm-4"><h1><u>Categories</u></h1>
+        <div class="row padding-top padding-bottom">
+            <div class="col-md-1"></div>
+            <div class="col-md-10 padding-none">
+                <a href="{{url_for('newCategory')}}">
+                    <button class="btn btn-dark" id="new-category">
+                        <span class="glyphicon books" aria-hidden="true"></span>Add Category
+                    </button>
+                </a>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <ul>
+            {% for category in categories %}
+                <li><a href='{{url_for("showCategoryBooks", category_name = category.name, category_id = category.id) }}'>{{category.name}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <div class="col-sm-8"><h1><u>Books</u></h1>
+        <ul class="list-unstyled">
+            {% for book in books %}
+                <li><a href='{{url_for("showBookDescription", book_id = book.id) }}'>{{book.name}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
